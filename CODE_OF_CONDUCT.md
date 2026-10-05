@@ -40,9 +40,8 @@ spaces when an individual is representing the project.
 
 ## Reporting
 
-Report incidents to `cloudcompute-conduct@usace.army.mil`
-<!-- CONFIRM address before publishing -->, or to any named maintainer in
-`CODEOWNERS` if you prefer a different route. Reports are reviewed by maintainers
+Report incidents to any named maintainer in
+`CODEOWNERS`. Reports are reviewed by maintainers
 who are not the subject of the report. Where an incident involves a Federal
 employee or a contractor's conduct on a contract, it may also be reportable
 through USACE or contract channels; we will tell you which, and will not
