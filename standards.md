@@ -59,7 +59,7 @@ routing (`CONTRIBUTING.md`).
 - **STD-LANG-004** — Build **MUST** be reproducible and non-interactive from a clean clone:
   `make ci` or equivalent one command, no undocumented manual step. If the documented command
   and the CI pipeline disagree, the pipeline is right and the docs are a defect.
-- **STD-LANG-005** — Build and tests **MUST NOT** require a developer-specific absolute path,
+- **STD-LANG-005** — Build for dev and tests **MUST NOT** require a developer-specific absolute path,
   host-only tool, or the developer's cloud credentials.
 - **STD-LANG-006** — Plugins **MUST** target `linux/amd64` unless an ADR records another
   target, since the Compute Provider provisions that architecture. A plugin that only runs on
