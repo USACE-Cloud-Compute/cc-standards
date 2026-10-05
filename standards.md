@@ -1,9 +1,11 @@
 # Cloud Compute Development Standards
 
 **Version:** 0.1 (proposed)
+
 **Status:** Draft for FFRD Software Development Strategy
-**Precedence:** Layer 1. See `README.md` §3. Overrides `styles.md` and `CONTRIBUTING.md`;
-overridden only by Layer 0 federal/DoD/USACE policy.
+
+**Precedence:** Layer 1. See `README.md` §3. Overrides `styles.md` and `CONTRIBUTING.md` overridden only by Layer 0 federal/DoD/USACE policy.
+
 **Terminology:** Plugin, Payload, DataSource, DataStore, Action, Manifest, Event, DAG,
 Compute Provider are defined in
 [`cc-home/docs/08_glossary.md`](https://github.com/USACE-Cloud-Compute/cc-home/blob/main/docs/08_glossary.md).
@@ -25,10 +27,9 @@ routing (`CONTRIBUTING.md`).
 
 | Class | Contains | Additional obligations |
 | --- | --- | --- |
-| **Platform** | Orchestrator, CLI, storage APIs (`cloudcompute`, `cloudcompute-cli`, `filesapi`) | Full §5 wire rules, §11 API compat, two-person review |
+| **Platform** | Abstraction Layer, CLI, storage APIs (`cloudcompute`, `cloudcompute-cli`, `filesapi`) | Full §5 wire rules, §11 API compatability, two-person review |
 | **SDK** | Language plugin SDKs (`cc-go-sdk`, `cc-java-sdk`, `cc-py-sdk`, `cc-dotnet-sdk`) | All of §5, §7, §8, §11 — including `contracts/` conformance |
-| **Plugin** | One containerized compute unit (`slam-plugin`, `storm-cloud-plugin`) | §6 in full, §10, §12; §5 as a consumer only |
-| **Runner/Adapter** | Wraps an existing model executable (`hms-runner`, `consequences-runner`) | §6, §9 (native dependency rules), §12 |
+| **Plugin**| Wraps an existing model executable (`hms-runner`, `consequences-runner`, `slam-plugin`, `storm-cloud-plugin`) | §5, §6, §9, §10 (native dependency rules), §12 |
 | **Documentation** | `cc-home`, `ffrd-demo-directory` | §13 only |
 
 ### 1.2 Naming
