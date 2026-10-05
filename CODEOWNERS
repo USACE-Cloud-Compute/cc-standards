@@ -14,48 +14,48 @@
 #     anything binding all four SDKs (standards.md STD-REV-003).
 #   - Substitute real GitHub handles. Bracketed entries are role placeholders to be filled.
 
-# ---- Global fallback: the standards maintainers ----
-*                                    @USACE-Cloud-Compute/cc-standards-maintainers
+# ---- Global fallback: the cloud compute administrators ----
+*                                    @USACE-Cloud-Compute/cc-admins
 
 # ---- Layer 1: language-agnostic obligations ----
 # Changing these changes what all 27 repos must do. Standard Owner approval is mandatory.
-/standards.md                        @USACE-Cloud-Compute/cc-standard-owner @USACE-Cloud-Compute/cc-standards-maintainers
-/README.md                           @USACE-Cloud-Compute/cc-standard-owner @USACE-Cloud-Compute/cc-standards-maintainers
+/standards.md                        @USACE-Cloud-Compute/cc-admins
+/README.md                           @USACE-Cloud-Compute/cc-admins
 
 # ---- Layer 2: style, per-language ----
 # Language stewards own their toolchain and its version bumps. A bump is a minor release of
 # the conformance pack and is never bundled with a feature change.
-/styles.md                           @USACE-Cloud-Compute/cc-standard-owner @USACE-Cloud-Compute/cc-standards-maintainers
+/styles.md                           @USACE-Cloud-Compute/cc-admins
 /conformance/python/                 @USACE-Cloud-Compute/cc-python-steward
 /conformance/java/                   @USACE-Cloud-Compute/cc-java-steward
 /conformance/go/                     @USACE-Cloud-Compute/cc-go-steward
 /conformance/dotnet/                 @USACE-Cloud-Compute/cc-dotnet-steward
-/conformance/markdown/               @USACE-Cloud-Compute/cc-standards-maintainers
-/conformance/docker/                 @USACE-Cloud-Compute/cc-standards-maintainers @USACE-Cloud-Compute/cc-security-reviewer
-/conformance/actions/                @USACE-Cloud-Compute/cc-standards-maintainers @USACE-Cloud-Compute/cc-security-reviewer
+/conformance/markdown/               @USACE-Cloud-Compute/cc-admins
+/conformance/docker/                 @USACE-Cloud-Compute/cc-admins
+/conformance/actions/                @USACE-Cloud-Compute/cc-admins
 
 # ---- The wire contract: highest blast radius in the program ----
 # All four SDK deserializers plus every registered plugin image depend on these fixtures.
 # A fixture change here is functionally a contract change.
-/contracts/                          @USACE-Cloud-Compute/cc-standard-owner @USACE-Cloud-Compute/cc-standards-maintainers @USACE-Cloud-Compute/cc-go-steward @USACE-Cloud-Compute/cc-java-steward @USACE-Cloud-Compute/cc-python-steward @USACE-Cloud-Compute/cc-dotnet-steward
+/contracts/                          @USACE-Cloud-Compute/cc-admins
 
 # ---- CI: supply-chain security surface ----
 # Workflow files decide what runs with which credentials. Security review is mandatory,
 # because this is where STD-SEC-001/002 (no secrets in fork contexts) is implemented.
-/ci/                                 @USACE-Cloud-Compute/cc-security-reviewer @USACE-Cloud-Compute/cc-standards-maintainers
-/.github/workflows/                  @USACE-Cloud-Compute/cc-security-reviewer @USACE-Cloud-Compute/cc-standards-maintainers
+/ci/                                 @USACE-Cloud-Compute/cc-admins
+/.github/workflows/                  @USACE-Cloud-Compute/cc-admins
 
 # ---- Decisions ----
 # An ADR is the only mechanism that can bind all four SDKs at once, and it is the program's
 # audit trail for why a standard changed.
-/adr/                                @USACE-Cloud-Compute/cc-standard-owner @USACE-Cloud-Compute/cc-standards-maintainers
+/adr/                                @USACE-Cloud-Compute/cc-admins
 
 # ---- Templates consumed by 27 repos ----
-/templates/                          @USACE-Cloud-Compute/cc-standards-maintainers
+/templates/                          @USACE-Cloud-Compute/cc-admins
 
 # ---- Security and conduct documents ----
-/SECURITY.md                         @USACE-Cloud-Compute/cc-security-reviewer @USACE-Cloud-Compute/cc-standard-owner
-/CODE_OF_CONDUCT.md                  @USACE-Cloud-Compute/cc-standard-owner
+/SECURITY.md                         @USACE-Cloud-Compute/cc-admins
+/CODE_OF_CONDUCT.md                  @USACE-Cloud-Compute/cc-admins
 
 # ---- Exemptions: none ----
 # An owned-by-nothing path is how an unreviewed change reaches main. Do not add wildcard
