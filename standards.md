@@ -61,9 +61,8 @@ routing (`CONTRIBUTING.md`).
   and the CI pipeline disagree, the pipeline is right and the docs are a defect.
 - **STD-LANG-005** — Build for dev and tests **MUST NOT** require a developer-specific absolute path,
   host-only tool, or the developer's cloud credentials.
-- **STD-LANG-006** — Plugins **MUST** target `linux/amd64` unless an ADR records another
-  target, since the Compute Provider provisions that architecture. A plugin that only runs on
-  `arm64` will schedule and fail in production, not in review.
+- **STD-LANG-006** — Plugins **MUST** target `linux/amd64/arm64` unless an ADR records another
+  target, since the Compute Provider provisions that architecture.
 
 ---
 
