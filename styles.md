@@ -1,11 +1,15 @@
 # Cloud Compute Style Guide
 
-**Version:** 0.1 (proposed) · **Precedence:** Layer 2. See `README.md` §3.
+**Version:** 0.1 (proposed)
+
+**Precedence:** Layer 2. See `README.md` §3.
+
 **Enforced by:** `conformance/` configs. If your formatter and this document disagree, the
 config wins and this document is a bug.
 
 **This document covers:** formatting, naming, comments, documentation syntax, tool selection,
 configuration of linters.
+
 **This document does NOT cover:** architecture, security, API compatibility, dependency
 policy, testing obligations, plugin runtime behavior — all in `standards.md`. Nor branch
 naming, review routing, release mechanics — all in `CONTRIBUTING.md`.
