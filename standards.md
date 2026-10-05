@@ -42,16 +42,6 @@ routing (`CONTRIBUTING.md`).
 - **STD-REPO-002** — Every repository **MUST** declare its class in the first line of its
   README, so tooling and newcomers can classify without guessing.
 
-### 1.3 Canonical location
-
-**OPEN DECISION D-0** — SDKs exist in both the `USACE` and `USACE-Cloud-Compute`
-organizations (`USACE/cc-go-sdk`, `USACE/cc-dotnet-sdk`, `USACE/cloudcompute` versus
-`USACE-Cloud-Compute/cc-py-sdk`, `cc-java-sdk`, `filesapi`). **STD-REPO-003** — Until
-resolved, the compatibility table in `standards.md` Appendix B is the authoritative
-statement of which repository is canonical per SDK, and non-canonical repositories
-**MUST** be archived or carry a first-line pointer to the canonical one. `cc-java-sdk-depricated`
-is already correctly named; the rest are not self-describing.
-
 ---
 
 ## 2. Language and platform baseline
