@@ -13,8 +13,7 @@ Report privately instead:
 
 1. **GitHub private vulnerability reporting** — use the "Report a vulnerability" tab on the
    repository's Security page, where enabled.
-2. **Email** — `cloudcompute-security@usace.army.mil` <!-- CONFIRM address before publishing -->
-3. **Internal (USACE/FFRD staff):** the program's security channel per the FFRD SOP, plus a
+2. **Internal (USACE/FFRD staff):** the program's security channel per the FFRD SOP, plus a
    private note to the `CODEOWNERS` handles for the affected repository.
 
 Include, as far as you safely can: affected repository and version, the component, a
