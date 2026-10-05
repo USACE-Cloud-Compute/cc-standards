@@ -7,9 +7,19 @@ It does not restate rules — those are in `standards.md` (obligations) and `sty
 (mechanics). Where this document and those disagree, they win.
 
 **Table of contents**
-1. Who may contribute · 2. Before you start · 3. Issues · 4. Setup · 5. Branches ·
-6. **Fork rules** · 7. Commits · 8. **Pull request rules** · 9. Review · 10. Merge ·
-11. Releases · 12. Timelines · 13. Closing a contribution
+1. Who may contribute
+2. Before you start
+3. Issues
+4. Setup
+5. Branches
+6. **Fork rules**
+7. Commits
+8. **Pull request rules**
+9. Review
+10. Merge
+11. Releases
+12. Timelines
+13. Closing a contribution
 
 ---
 
@@ -23,14 +33,9 @@ determines your path — most importantly whether you use a **fork** or a **bran
 | **A. Core maintainer** | Named in `CODEOWNERS` for the repo | Branch in-repo; can approve and merge |
 | **B. Org contributor** | Member of `USACE-Cloud-Compute` (Federal employee, or contractor added to the org) | **Branch in-repo. Do not fork.** |
 | **C. Program contributor** | FFRD contractor/LAN employee not yet in the org | Request org membership, or fork + PR |
-| **D. External** | Anyone outside USACE/FFRD | Fork + PR; code changes gated (see §6.4) |
+| **D. External** | Anyone outside USACE | Fork + PR; code changes gated (see §6.4) |
 
-**OPEN DECISION D-1** — whether lane D code changes are accepted at all. Draft position:
-issues and documentation from lane D are always welcome; code from lane D that touches an SDK
-or the wire contract requires an accepted ADR first, so nobody writes a large change we cannot
-take.
-
-FFRD program work additionally follows the FFRD SOP and its job aids; where the SOP imposes a
+FFRD specific program work additionally follows the FFRD SOP and its job aids; where the SOP imposes a
 review or approval step, it is **additive** to this process, never a substitute for it.
 
 ---
@@ -154,20 +159,21 @@ branch.**
 
 ### 6.2 Fork mechanics
 
-1. Fork on GitHub into your **personal** account or your employer's organization — never into
+1. *FOR FFRD* Fork on GitHub into the fema-ffrd org.
+2. For non-FFRD fork on GitHub into your **personal** account or your employer's organization — never into
    another USACE repository, and never into a personal account you do not control long-term.
-2. Keep your fork's default branch as `main`, matching upstream. Do not rename it.
-3. Sync **by rebase or merge from `upstream/main`, at the start of every work session**:
+3. Keep your fork's default branch as `main`, matching upstream. Do not rename it.
+4. Sync **by rebase or merge from `upstream/main`, at the start of every work session**:
    ```bash
    git fetch upstream
    git rebase upstream/main      # or: git merge upstream/main
    ```
    A PR that is 40 commits and three weeks behind will be asked to rebase before review.
-4. One fork branch per issue. Do not stack unrelated work on one long-lived fork branch and
+5. One fork branch per issue. Do not stack unrelated work on one long-lived fork branch and
    PR it as a single change.
-5. Never push `upstream/main` to your fork's `main` and then open a PR from it. Always PR from
+6. Never push `upstream/main` to your fork's `main` and then open a PR from it. Always PR from
    a topic branch.
-6. Delete merged branches. Stale branches in forks of public repos are how old experimental
+7. Delete merged branches. Stale branches in forks of public repos are how old experimental
    code gets accidentally PR'd back.
 
 ### 6.3 What must never go into a fork
