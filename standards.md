@@ -36,8 +36,7 @@ routing (`CONTRIBUTING.md`).
 
 - New repository names **MUST** be lowercase, hyphen-delimited, ASCII: `^[a-z][a-z0-9-]{1,38}$`.
 - `cc-` prefix reserved for platform and SDK. Plugin/Adapter/Model wrappers repos **SHOULD** end in `-plugin` or `-runner`.
-- **STD-REPO-001** — Existing names that violate these (`storm-cloud-plugin` ordering,
-  legacy `cc_py_sdk` underscore form in documentation) are **grandfathered**. Do not rename
+- **STD-REPO-001** — Existing names that violate these (e.g. `cc_py_sdk` underscore form in documentation) are **grandfathered**. Do not rename
   a repository to satisfy naming. Renames break registered container images, module paths,
   and PyPI/NuGet coordinates — a far larger cost than the inconsistency.
 - **STD-REPO-002** — Every repository **MUST** declare its class in the first line of its
