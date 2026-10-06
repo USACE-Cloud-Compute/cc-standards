@@ -1,0 +1,8 @@
+{
+    "valid": true,
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-PLG-006",
+        "source": "CODE: cc-go-sdk testdata/test_payload.json"
+    }
+}

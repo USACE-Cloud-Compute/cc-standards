@@ -1,0 +1,33 @@
+{
+    "name": "Trinity AEP Grid Compute",
+    "provider": {
+        "type": "awsbatch",
+        "execution-role": "executionRole",
+        "region": "us-west-1",
+        "profile": "my_compute",
+        "queue": "MY_QUEUE"
+    },
+    "plugins": [
+        "aep-grid-plugin-manifest-aws-docker.json"
+    ],
+    "event": {
+        "compute-manifests": [
+            "aep-grid-compute-manifest.json"
+        ]
+    },
+    "generator": {
+        "type": "array",
+        "start": 1,
+        "end": 2000,
+        "perEventLoop": [
+            {
+                "MODEL_PREFIX": "bardwell-creek",
+                "DEBUG_CELL": "1"
+            },
+            {
+                "MODEL_PREFIX": "trinity",
+                "DEBUG_CELL": "0"
+            }
+        ]
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "job_count": 4000,
+    "event_identifiers": "1..2000, each repeated per perEventLoop entry",
+    "env_written_per_iteration": {
+        "perEventLoop keys": "written into the container environment"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "X",
+            "store_type": "S4"
+        }
+    ],
+    "inputs": [],
+    "outputs": [],
+    "actions": []
+}

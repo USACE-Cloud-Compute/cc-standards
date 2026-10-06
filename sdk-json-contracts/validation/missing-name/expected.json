@@ -1,0 +1,13 @@
+{
+    "error": "VALIDATION_FAILED",
+    "pointers": [
+        "/stores/0/name",
+        "/actions/0/name"
+    ],
+    "error_class": "required",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-021",
+        "source": "Schema: data-store.name and action.name are required"
+    }
+}

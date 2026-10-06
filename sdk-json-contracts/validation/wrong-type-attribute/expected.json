@@ -1,0 +1,10 @@
+{
+    "getInt": "ERROR",
+    "getIntOrDefault": 5,
+    "getBoolean": "ERROR",
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-WIRE-021 / STD-TST-006",
+        "source": "CODE: GetAttribute[T] uses cast.ToInt64E / cast.ToStringE+lower=='true'"
+    }
+}

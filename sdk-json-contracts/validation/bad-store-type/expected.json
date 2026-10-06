@@ -1,0 +1,12 @@
+{
+    "error": "VALIDATION_FAILED",
+    "pointers": [
+        "/stores/0/store_type"
+    ],
+    "error_class": "enum",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-007",
+        "source": "CODE: StoreType constants S3/FS/WS/RDBMS/EBS; registry holds only S3 and FS"
+    }
+}

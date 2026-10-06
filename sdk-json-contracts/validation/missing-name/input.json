@@ -1,0 +1,13 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "store_type": "S3"
+        }
+    ],
+    "inputs": [],
+    "outputs": [],
+    "actions": [
+        {}
+    ]
+}

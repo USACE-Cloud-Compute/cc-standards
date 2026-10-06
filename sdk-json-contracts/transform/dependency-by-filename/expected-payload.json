@@ -1,0 +1,16 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [],
+    "outputs": [],
+    "actions": []
+}

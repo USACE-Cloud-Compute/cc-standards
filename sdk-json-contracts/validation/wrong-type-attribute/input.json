@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "iterations": "not-a-number",
+        "debug": "maybe"
+    },
+    "stores": [],
+    "inputs": [],
+    "outputs": [],
+    "actions": []
+}

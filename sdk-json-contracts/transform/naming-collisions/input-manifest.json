@@ -1,0 +1,31 @@
+{
+    "manifest_name": "m",
+    "plugin_definition": "P",
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": {
+        "payload_attributes": {
+            "store_name": "this-is-an-attribute-not-a-reference",
+            "profile": "also-just-an-attribute"
+        },
+        "data_sources": [
+            {
+                "name": "i",
+                "paths": {
+                    "default": "a.json"
+                },
+                "store_name": "FFRD"
+            }
+        ]
+    },
+    "outputs": [],
+    "actions": []
+}

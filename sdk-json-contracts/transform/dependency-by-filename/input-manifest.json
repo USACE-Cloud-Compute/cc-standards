@@ -1,0 +1,20 @@
+{
+    "manifest_name": "second",
+    "plugin_definition": "P",
+    "dependencies": [
+        "../a/first.json"
+    ],
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": {},
+    "outputs": [],
+    "actions": []
+}

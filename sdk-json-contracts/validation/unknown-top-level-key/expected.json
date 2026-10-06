@@ -1,0 +1,9 @@
+{
+    "valid": true,
+    "survives_round_trip": true,
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-WIRE-002 / STD-WIRE-003",
+        "source": "Schema: additionalProperties true at payload root"
+    }
+}

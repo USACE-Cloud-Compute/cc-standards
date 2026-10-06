@@ -1,0 +1,67 @@
+{
+    "manifest_name": "ras-run",
+    "plugin_definition": "RAS_PLUGIN:4",
+    "dependencies": [
+        "prep.json"
+    ],
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": {
+        "environment": [
+            {
+                "name": "AWS_REGION",
+                "value": "us-east-1"
+            }
+        ],
+        "parameters": {
+            "param1": 1
+        },
+        "payload_attributes": {
+            "modelPrefix": "bardwell-creek",
+            "plan": "01"
+        },
+        "data_sources": [
+            {
+                "name": "rasOutput",
+                "paths": {
+                    "default": "mymodel/mymodel.p01.hdf"
+                },
+                "store_name": "FFRD"
+            }
+        ]
+    },
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "sims/01/out.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "actions": [
+        {
+            "name": "compute",
+            "type": "compute",
+            "attributes": {
+                "fast": true
+            }
+        }
+    ],
+    "tags": {
+        "project": "ffrd"
+    },
+    "retry_attempts": 2,
+    "job_timeout": 3600,
+    "resource_requirements": {
+        "vcpu": "4"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [],
+    "outputs": [
+        {
+            "name": "o",
+            "paths": {
+                "default": "x.json"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "actions": []
+}
