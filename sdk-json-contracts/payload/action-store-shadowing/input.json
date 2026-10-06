@@ -1,0 +1,48 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/payload-root"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "name": "i",
+            "paths": {
+                "default": "a.json"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "outputs": [],
+    "actions": [
+        {
+            "name": "compute",
+            "type": "compute",
+            "stores": [
+                {
+                    "name": "FFRD",
+                    "store_type": "FS",
+                    "profile": "FFRD",
+                    "params": {
+                        "root": "/action-root"
+                    }
+                }
+            ],
+            "inputs": [
+                {
+                    "name": "i",
+                    "paths": {
+                        "default": "a.json"
+                    },
+                    "store_name": "FFRD"
+                }
+            ]
+        }
+    ]
+}

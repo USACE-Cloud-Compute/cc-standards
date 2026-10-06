@@ -1,0 +1,37 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [],
+    "outputs": [],
+    "actions": [
+        {
+            "name": "compute_json",
+            "type": "compute_json",
+            "description": "compute something",
+            "attributes": {
+                "parameter1": true,
+                "parameter2": "parametervalue2",
+                "parameter3": "2.3"
+            },
+            "params": {
+                "parameter1": true,
+                "parameter2": "parametervalue2",
+                "parameter3": "2.3"
+            }
+        }
+    ],
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-SDK-003",
+        "source": "DOC: Confluence payload example uses `params`; CODE: Action embeds IOManager whose attributes tag is `attributes`"
+    }
+}

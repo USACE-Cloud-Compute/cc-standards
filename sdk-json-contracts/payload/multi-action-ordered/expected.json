@@ -1,0 +1,17 @@
+{
+    "action_order": [
+        "perform-qa-qc",
+        "run-geometry-preprocess",
+        "run-unsteady",
+        "generate-stored-map",
+        "run-unsteady"
+    ],
+    "repeated": [
+        "run-unsteady"
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-021",
+        "source": "DOC: cc-home SDK Concepts, 'Actions are performed in order ... can be repeated'"
+    }
+}

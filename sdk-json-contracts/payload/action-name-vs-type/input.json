@@ -1,0 +1,16 @@
+{
+    "attributes": {},
+    "stores": [],
+    "inputs": [],
+    "outputs": [],
+    "actions": [
+        {
+            "name": "prepare",
+            "type": "run-steady"
+        },
+        {
+            "name": "solve",
+            "type": "run-unsteady"
+        }
+    ]
+}

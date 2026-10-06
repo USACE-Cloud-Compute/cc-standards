@@ -1,0 +1,12 @@
+{
+    "attributes": {},
+    "stores": [],
+    "inputs": [],
+    "outputs": [],
+    "actions": [],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-021",
+        "source": "CODE: cc-go-sdk testdata/test_payload.json (verbatim)"
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "attributes": {
+        "modelPrefix": "basin-a"
+    },
+    "name": "example-plugin",
+    "image_and_tag": "0000000000.dkr.ecr.us-east-1.amazonaws.com/example:1.0",
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            },
+            "aFieldFromANewerCli": {
+                "nested": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "name": "model.json",
+            "paths": {
+                "default": "model-library/basin-a.json"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "outputs": [],
+    "actions": [
+        {
+            "name": "compute",
+            "type": "compute_json"
+        }
+    ],
+    "futureTopLevelArray": [
+        1,
+        2,
+        3
+    ],
+    "futureScalar": "keep me",
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-WIRE-003",
+        "source": "CODE: Go unmarshal into a struct discards untagged keys entirely"
+    }
+}

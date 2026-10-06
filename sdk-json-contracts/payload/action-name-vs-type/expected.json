@@ -1,0 +1,12 @@
+{
+    "dispatch_order": [
+        "prepare",
+        "solve"
+    ],
+    "note": "Go matches action.Name against ActionRegistry; the cc-py-sdk README example matches on action.type",
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-SDK-003",
+        "source": "CODE: pluginmanager.go RunActions() compares action.Name to registry keys; DOC: cc-py-sdk README `match action.type:`"
+    }
+}

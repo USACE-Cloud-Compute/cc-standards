@@ -1,0 +1,55 @@
+{
+    "attributes": {
+        "modelPrefix": "bardwell-creek",
+        "plan": "01",
+        "iterations": 12,
+        "debug": true,
+        "threshold": 2.5,
+        "gages": [
+            "a",
+            "b"
+        ],
+        "nested": {
+            "key": "value"
+        }
+    },
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "name": "model.json",
+            "paths": {
+                "default": "bardwell-creek/model.json"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "output.json",
+            "paths": {
+                "default": "simulations/0/output.json"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "actions": [
+        {
+            "name": "compute",
+            "type": "compute_json"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-021 / STD-SDK-001",
+        "source": "DOC: cc-home 06 inputs.payload_attributes; CODE: attribute type coercion in payload-attributes.go"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "payloadAttributes": {
+        "modelPrefix": "from-docs"
+    },
+    "attributes": {
+        "modelPrefix": "from-code"
+    },
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "name": "i",
+            "paths": {
+                "default": "{ATTR::modelPrefix}/in.json"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "outputs": [],
+    "actions": []
+}

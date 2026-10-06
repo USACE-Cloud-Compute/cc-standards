@@ -1,0 +1,9 @@
+{
+    "effective_root_for_action": "/action-root/a.json",
+    "effective_root_for_payload": "/payload-root/a.json",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-SDK-001",
+        "source": "CODE: connectStores() per action + IOManager.SetParent() local-then-parent resolution"
+    }
+}

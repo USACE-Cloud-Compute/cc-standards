@@ -1,0 +1,9 @@
+{
+    "read_result": "ERROR: data source result not found in inputs",
+    "write_result": "OK",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-PLG-006",
+        "source": "CODE: Put()/Copy() resolve via GetOutputDataSource; GetReader() via GetInputDataSource"
+    }
+}

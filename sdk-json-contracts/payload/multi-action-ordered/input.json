@@ -1,0 +1,53 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "name": "geo",
+            "paths": {
+                "default": "m/geo.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "m/out.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "actions": [
+        {
+            "name": "perform-qa-qc",
+            "type": "qaqc"
+        },
+        {
+            "name": "run-geometry-preprocess",
+            "type": "geom"
+        },
+        {
+            "name": "run-unsteady",
+            "type": "unsteady"
+        },
+        {
+            "name": "generate-stored-map",
+            "type": "map"
+        },
+        {
+            "name": "run-unsteady",
+            "type": "unsteady"
+        }
+    ]
+}

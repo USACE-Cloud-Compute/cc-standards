@@ -1,0 +1,13 @@
+{
+    "resolved_path": "a/model.json",
+    "_status": "OPEN",
+    "alternatives": [
+        "a/model.json (first-match-wins, as cc-go-sdk GetDataSource returns the first match)",
+        "ERROR: duplicate DataSource name"
+    ],
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-WIRE-021",
+        "source": "CODE: IOManager.GetDataSource returns on first name match; no duplicate check exists"
+    }
+}

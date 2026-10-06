@@ -1,0 +1,48 @@
+{
+    "attributes": {},
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        },
+        {
+            "name": "LOCAL",
+            "store_type": "FS",
+            "params": {
+                "root": "/home/mydir"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "name": "remote",
+            "paths": {
+                "default": "x/a.json"
+            },
+            "store_name": "FFRD"
+        },
+        {
+            "name": "local",
+            "paths": {
+                "default": "y/b.json"
+            },
+            "store_name": "LOCAL"
+        }
+    ],
+    "outputs": [],
+    "actions": [
+        {
+            "name": "copy",
+            "type": "copy"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-002 / STD-STR-007",
+        "source": "DOC: cc-home 06 stores sample (verbatim shape)"
+    }
+}
