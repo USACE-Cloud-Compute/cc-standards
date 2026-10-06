@@ -1,0 +1,8 @@
+{
+    "error": "ERROR: SUBSTITUTION_MISSING_ENVIRONMENT",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "DOC: same as missing-attr-is-fatal"
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/action.schema.json",
+    "title": "CC Action",
+    "description": "One ordered unit of work inside a payload. An Action embeds IOManager in Go, so it carries its OWN attributes, stores, inputs and outputs that shadow or extend the payload-level ones. Field names from USACE/cc-go-sdk payload.go (Action).",
+    "type": "object",
+    "required": ["name"],
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The dispatch key. cc-go-sdk RunActions() matches action.Name against ActionRegistry keys, NOT action.Type. A plugin therefore dispatches on name.",
+            "x-cc-known-divergence": "The Python SDK example in the cc-py-sdk README dispatches with `match action.type:` while cc-go-sdk dispatches on Name. The two SDKs disagree about which field selects the code path. Until an ADR settles it, a payload MUST set name and type to the same value to be portable across both. Recorded as fixtures/payload/action-name-vs-type."
+        },
+        "type": {
+            "type": "string",
+            "description": "Classifier for the action. Optional in Go (omitempty).",
+            "x-cc-decision-required": true
+        },
+        "description": {
+            "type": "string",
+            "description": "Human-readable intent. Never branch on this; it is documentation."
+        },
+        "attributes": {
+            "type": "object",
+            "description": "Action-scoped attributes. These take precedence over payload attributes for {ATTR::} substitution inside this action's scope.",
+            "additionalProperties": true,
+            "x-cc-known-divergence": "The Confluence payload example writes action parameters under the key 'params'. Go parses an action's attributes from 'attributes' (embedded IOManager) and IGNORES 'params' entirely. An action written from the Confluence example therefore arrives in Go with empty attributes and its parameter1/parameter2/parameter3 values are silently lost. This is a live defect class, not a hypothetical: see contracts/payload/action-params-key."
+        },
+        "stores": {
+            "type": "array",
+            "items": {"$ref": "data-store.schema.json"},
+            "description": "Action-scoped stores. Connected separately from payload stores; a payload-scoped store is still reachable through the parent IOManager chain."
+        },
+        "inputs": {
+            "type": "array",
+            "items": {"$ref": "data-source.schema.json"}
+        },
+        "outputs": {
+            "type": "array",
+            "items": {"$ref": "data-source.schema.json"}
+        }
+    },
+    "x-cc-notes": {
+        "scoping-model": "cc-go-sdk sets each action's IOManager parent to the payload IOManager and resolves GetStore/GetDataSource by searching local first, then recursing to parent. An action that declares a store with the SAME NAME as a payload store SHADOWS it. That shadowing is the whole value of action scoping and MUST be implemented identically in every SDK; a language whose parser flattens the two levels will pick the wrong connection.",
+        "substitution-asymmetry": "substitutePathVariables() calls substituteMapVariables(pm.Attributes, false) for payload attributes but substituteMapVariables(action.Attributes, true) for action attributes. The boolean changes whether environment variables are consulted. Action attributes therefore substitute MORE than payload attributes do. The two contracts/substitution/ scope fixtures pin this; it is easy to implement wrong in a way that only shows up when an attribute value contains {ENV::}.",
+        "ordering": "Array order is semantic. RunActions() iterates pm.Actions in order. Reordering actions changes results."
+    }
+}

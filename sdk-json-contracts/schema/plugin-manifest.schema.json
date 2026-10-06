@@ -1,0 +1,83 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/plugin-manifest.schema.json",
+    "title": "CC Plugin Manifest",
+    "description": "Registration document for a plugin container, analogous to an AWS Batch job definition. Field names from cc-home/docs/05_plugin-manifest.md. Registered once per plugin and referenced by name:revision from compute manifests, so every field here is frozen against already-deployed DAGs.",
+    "type": "object",
+    "required": ["name", "image_and_tag"],
+    "additionalProperties": true,
+    "properties": {
+        "name": {"type": "string", "minLength": 1, "description": "Registered plugin name. The compute provider's identifier for the plugin."},
+        "image_and_tag": {"type": "string", "minLength": 1, "description": "Full container reference, e.g. 0000000000.dkr.ecr.us-east-1.amazonaws.com/mycompute:1.0.", "x-cc-rule": "STD-OPS-001: ':latest' MUST NOT appear in a registered manifest. A massively parallel run must be pinned to something reproducible. Prefer shipping a digest alongside the tag."},
+        "description": {"type": "string"},
+        "command": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Command parameter array. When omitted the image's CMD/ENTRYPOINT is used.",
+            "x-cc-rule": "STD-WIRE-023: SHOULD be explicit rather than inherited, so registered behavior is inspectable and troubleshooting does not require rebuilding an image to learn what ran. Supports AWS Batch Ref:: parameter substitution, resolved against the compute manifest's inputs.parameters."
+        },
+        "compute_environment": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "vcpu": {"type": ["string", "number"], "description": "CPU units. Documented sample uses a STRING ('\"2\"'), so both string and number must parse. This is why the type is a union and not a number: tightening it would reject registered manifests."},
+                "memory": {"type": ["string", "number"], "description": "RAM in MB. 8192 means 8GB."},
+                "extraHosts": {"type": "array", "items": {"type": "string"}, "description": "Extra host mappings, e.g. 'host.docker.internal:host-gateway'. Used for local Docker compute."}
+            },
+            "x-cc-known-divergence": "extraHosts is camelCase while its siblings are lowercase single words and its parent is snake_case. Frozen by STD-WIRE-005 and listed in standards.md Appendix C. The casing is inconsistent WITHIN one object, which makes it the most likely target of an accidental 'tidy up' refactor.",
+            "x-cc-rule": "STD-PLG-030: vcpu and memory MUST be measured from a representative run with stated headroom, not guessed. Under-declared memory is OOM-kill roulette across a fleet; over-declared is the dominant cost driver in FFRD batch runs."
+        },
+        "environment": {
+            "type": "array",
+            "description": "Environment variables injected into the running container.",
+            "items": {"$ref": "#/$defs/nameValue"}
+        },
+        "credentials": {
+            "type": "array",
+            "description": "Values mapped from the compute provider's secret store into the container environment.",
+            "items": {
+                "type": "object",
+                "required": ["name", "value"],
+                "additionalProperties": true,
+                "properties": {
+                    "name": {"type": "string", "minLength": 1},
+                    "value": {"type": "string", "pattern": "^secretsmanager:[^:]*::.*$", "description": "A secretsmanager reference, never a literal."}
+                },
+                "x-cc-rule": "STD-SEC-010 / STD-DATA-004: a literal credential here is a merge blocker. Documented form is 'secretsmanager:NAME::'. Note the value pattern permits the trailing empty segments the docs show."
+            }
+        },
+        "retry_attempts": {"type": "integer", "minimum": 0, "default": 0},
+        "execution_timeout": {"type": ["integer", "null"], "minimum": 1, "description": "Seconds. null or absent means no timeout.", "x-cc-known-divergence": "The plugin manifest calls this execution_timeout; the COMPUTE MANIFEST calls the equivalent override job_timeout. Two names, one concept, both live. Frozen."},
+        "privileged": {"type": "boolean", "default": false, "x-cc-rule": "STD-PLG-031 / STD-SEC-012: setting true grants nearly host-equivalent access. Requires an ADR plus a named device in linux_parameters.devices."},
+        "linux_parameters": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["host_path", "container_path"],
+                        "additionalProperties": true,
+                        "properties": {
+                            "host_path": {"type": "string", "minLength": 1, "description": "Device path on the host, e.g. /dev/fuse."},
+                            "container_path": {"type": "string", "minLength": 1}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "$defs": {
+        "nameValue": {
+            "type": "object",
+            "required": ["name", "value"],
+            "additionalProperties": true,
+            "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "value": {"type": "string"}
+            },
+            "x-cc-note": "Array-of-pairs rather than an object, so ordering is preserved and the same shape serves environment and credentials. Values are strings even when numeric ('\"42\"', '\"NO\"', '\"FALSE\"'); SDKs MUST NOT coerce types here."
+        }
+    }
+}

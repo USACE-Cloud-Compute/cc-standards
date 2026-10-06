@@ -1,0 +1,8 @@
+{
+    "error": "ERROR: SUBSTITUTION_CYCLE",
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "CODE: attribute `self` is literally `{ATTR::self}`"
+    }
+}

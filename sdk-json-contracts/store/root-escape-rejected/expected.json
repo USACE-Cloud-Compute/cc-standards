@@ -1,0 +1,10 @@
+{
+    "error": "PATH_OUTSIDE_ROOT",
+    "exit_class": "usage/config error",
+    "exit_code": 2,
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-SEC-020 / STD-STR-005",
+        "source": "Required behavior; NOT currently implemented in cc-go-sdk GetAbsolutePath"
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "attributes": {
+        "modelPrefix": "bardwell-creek",
+        "plan": "01",
+        "empty": "",
+        "inner": "has{braces}inside",
+        "self": "{ATTR::self}"
+    },
+    "stores": [
+        {
+            "name": "FFRD",
+            "store_type": "S3",
+            "profile": "FFRD",
+            "params": {
+                "root": "/model-library"
+            }
+        }
+    ],
+    "inputs": [],
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "{ENV::NOT_SET_VAR}/out.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "actions": []
+}

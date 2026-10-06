@@ -1,0 +1,19 @@
+{
+    "store": {
+        "name": "LOCAL",
+        "store_type": "FS",
+        "params": {
+            "root": "/home/mydir"
+        }
+    },
+    "operation": "publish",
+    "datasource": {
+        "name": "shape",
+        "paths": {
+            "prj": "s.prj",
+            "shp": "s.shp",
+            "dbf": "s.dbf"
+        },
+        "store_name": "LOCAL"
+    }
+}

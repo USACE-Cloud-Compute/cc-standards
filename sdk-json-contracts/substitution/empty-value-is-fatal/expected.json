@@ -1,0 +1,8 @@
+{
+    "error": "ERROR: SUBSTITUTION_EMPTY_VALUE",
+    "_meta": {
+        "status": "OPEN",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "CODE: Go `os.Getenv` returns \"\" for both unset and set-empty; the regex cannot distinguish them without a lookup against the source map"
+    }
+}

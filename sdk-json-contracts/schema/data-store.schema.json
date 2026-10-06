@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/data-store.schema.json",
+    "title": "CC DataStore",
+    "description": "A connection descriptor for a storage backend. Field names taken verbatim from json struct tags in USACE/cc-go-sdk datastore.go (DataStore).",
+    "type": "object",
+    "required": ["name", "store_type"],
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "How DataSources and plugin code reference this store. Must be unique within its scope; duplicate names resolve first-match-wins in cc-go-sdk GetStore, which is an open contract question."
+        },
+        "id": {
+            "type": ["string", "null"],
+            "format": "uuid"
+        },
+        "store_type": {
+            "type": "string",
+            "enum": ["S3", "FS", "WS", "RDBMS", "EBS"],
+            "x-cc-source": "cc-go-sdk ccstore.go StoreType constants",
+            "x-cc-known-divergence": "Only S3 (FSS3) and FS (FSB) are registered in DataStoreTypeRegistry by registerStoreTypes(). WS, RDBMS and EBS are declared constants with no registered implementation, so a payload naming them fails at connectStores with 'Unregistered store type'. TileDB is a separate unregistered package. The enum lists what the code can NAME; only S3 and FS currently WORK. An SDK MUST report an unregistered-but-valid type as 'unsupported backend', not as a schema violation."
+        },
+        "profile": {
+            "type": "string",
+            "description": "Prefix applied to environment variable lookups when connecting. profile 'MYSTORE' means credentials and endpoint are read from MYSTORE_AWS_ACCESS_KEY_ID, MYSTORE_AWS_REGION and so on. Absent or empty means no prefix.",
+            "x-cc-note": "FS stores do not open a connection and therefore do not need a profile. Field name is 'profile' on the store; the payload-scoped env var CC_PROFILE is a different thing (cc-go-sdk CcProfile = \"CC\")."
+        },
+        "params": {
+            "type": "object",
+            "description": "Backend-specific parameters. Both S3 and FS honor 'root' as a prefix applied to every path in this store.",
+            "additionalProperties": true,
+            "properties": {
+                "root": {
+                    "type": "string",
+                    "description": "Root prefix/folder for resources in this store. cc-go-sdk GetAbsolutePath defaults it to \"/\" when absent via GetStringOrDefault(\"root\", \"/\")."
+                }
+            },
+            "x-cc-note": "Typed as PayloadAttributes in Go (map[string]any), so values are not guaranteed to be strings. Do not add additionalProperties: {type: string} here; the Go-generated schema does and it is wrong at runtime."
+        }
+    }
+}

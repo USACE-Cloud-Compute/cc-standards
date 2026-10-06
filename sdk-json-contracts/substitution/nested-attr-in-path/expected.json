@@ -1,0 +1,16 @@
+{
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "models/bardwell-creek/evt-7/plan01.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "CODE: substitutePathVariables() covers Inputs and Outputs paths"
+    }
+}

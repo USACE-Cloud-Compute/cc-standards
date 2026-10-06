@@ -1,0 +1,10 @@
+{
+    "published_atomically": true,
+    "list_after_failure": [],
+    "note": "a .shp without its .dbf is a corrupt output that may not fail until a downstream plugin reads it",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-006",
+        "source": "Multi-file DataSource staging requirement"
+    }
+}

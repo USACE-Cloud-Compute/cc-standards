@@ -1,0 +1,16 @@
+{
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "bardwell-creek.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "DOC: Confluence — substitution applies to 'DataSource Names, Paths, and DataPaths'"
+    }
+}

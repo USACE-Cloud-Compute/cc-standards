@@ -1,0 +1,16 @@
+{
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "bardwell-creek/01/out.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "CODE: substitutionRegexPattern = `{([^{}]*)}`; DOC: Confluence 'Payload Substitutions'"
+    }
+}

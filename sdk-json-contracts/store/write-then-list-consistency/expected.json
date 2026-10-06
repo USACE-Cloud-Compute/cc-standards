@@ -1,0 +1,9 @@
+{
+    "visible_immediately": "backend-dependent",
+    "must_be": "sorted-in-code regardless",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-003",
+        "source": "Object store listing consistency after write"
+    }
+}

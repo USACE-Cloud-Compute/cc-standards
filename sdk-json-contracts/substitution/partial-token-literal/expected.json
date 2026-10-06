@@ -1,0 +1,16 @@
+{
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "prefix-bardwell-creek-suffix.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "CODE: regex applied with ReplaceAllString, not full-match"
+    }
+}

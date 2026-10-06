@@ -1,0 +1,45 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/payload.schema.json",
+    "title": "CC Payload",
+    "description": "The document the core library writes to the compute store and the SDK reads at startup. Structure is taken from the embedded IOManager and Payload structs in USACE/cc-go-sdk payload.go. This is the contract shared by all four SDKs; conformance is proven by contracts/payload/.",
+    "type": "object",
+    "required": ["stores", "inputs", "outputs", "actions"],
+    "additionalProperties": true,
+    "properties": {
+        "attributes": {
+            "type": "object",
+            "description": "Payload attributes: parameters the plugin reads to configure a run. Values may be string, number, boolean, array or nested object.",
+            "additionalProperties": true,
+            "x-cc-source": "cc-go-sdk IOManager.Attributes PayloadAttributes `json:\"attributes,omitempty\"`",
+            "x-cc-known-divergence": "The Confluence payload example and cc-home docs call this key 'payloadAttributes'. The Go struct tag says 'attributes'. An SDK that reads only 'payloadAttributes' silently sees an EMPTY attribute map against a Go-produced payload, and every {ATTR::} substitution then fails or resolves wrong. This is the single highest-value parity fixture in the suite: see contracts/payload/attributes-key-divergence/.",
+            "x-cc-decision-required": true
+        },
+        "stores": {
+            "type": "array",
+            "description": "DataStores reachable from this scope. cc-go-sdk connects each in order via connectStores() before substitution runs.",
+            "items": {"$ref": "data-store.schema.json"},
+            "x-cc-note": "Present but empty in the minimal payload; cc-go-sdk's own testdata/test_payload.json has all four collections as empty arrays, so an SDK MUST NOT treat empty as absent."
+        },
+        "inputs": {
+            "type": "array",
+            "items": {"$ref": "data-source.schema.json"},
+            "description": "Readable DataSources. Lookups search inputs then outputs when the caller does not specify INPUT/OUTPUT."
+        },
+        "outputs": {
+            "type": "array",
+            "items": {"$ref": "data-source.schema.json"},
+            "description": "Writable DataSources. Put() and Copy() resolve their targets against OUTPUTS ONLY in cc-go-sdk, so writing to a name that exists only in inputs is an error even though the name is present in the payload."
+        },
+        "actions": {
+            "type": "array",
+            "description": "Ordered work items. Executed in array order; the same type may repeat; items may be omitted from a payload entirely.",
+            "items": {"$ref": "action.schema.json"}
+        }
+    },
+    "x-cc-notes": {
+        "required-fields-rationale": "The four collections are required because cc-go-sdk unmarshals into typed slices and a missing key yields nil, which behaves identically to empty for every consumer. Requiring them makes the distinction explicit at the boundary without changing behavior. This is a NEW obligation and therefore a MAJOR contract change under STD-WIRE-002; it is recorded as proposed, not as current fact.",
+        "unknown-keys": "additionalProperties: true is mandatory. STD-WIRE-003 requires unknown keys survive round-trip; a schema that rejects them would authorize SDKs to corrupt payloads written by a newer CLI.",
+        "no-version-field": "The payload carries no version field today. An SDK therefore cannot know which contract revision a payload was written against. Adding one is proposed as 'contractVersion' (camelCase per STD-WIRE-005) and is a separate ADR."
+    }
+}

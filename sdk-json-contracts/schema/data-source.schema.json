@@ -1,0 +1,48 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/data-source.schema.json",
+    "title": "CC DataSource",
+    "description": "A named set of resource paths and internal data paths within one DataStore. Field names are taken verbatim from the json struct tags in USACE/cc-go-sdk datastore.go (DataSource), which is the de facto wire contract all four SDKs must match. Keys are frozen by standards.md STD-WIRE-005; do not re-case them.",
+    "type": "object",
+    "required": ["name"],
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Identifier used by SDK lookups (GetInputDataSource / GetOutputDataSource). May contain {ENV::} or {ATTR::} substitution tokens.",
+            "x-cc-source": "cc-go-sdk DataSource.Name `json:\"name,omitempty\"`",
+            "x-cc-substitutable": true
+        },
+        "id": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Optional stable identifier. Pointer in Go, so absent and null are both representable and MUST be treated as equivalent.",
+            "x-cc-source": "cc-go-sdk DataSource.ID *uuid.UUID `json:\"id,omitempty\"`"
+        },
+        "paths": {
+            "type": "object",
+            "description": "Map of path key (e.g. \"default\") to resource path. A DataSource may legitimately have no paths when it addresses internal data only (data_paths), so this is not required.",
+            "additionalProperties": {"type": "string"},
+            "propertyNames": {"not": {"pattern": "^\\s*$"}},
+            "x-cc-source": "cc-go-sdk DataSource.Paths map[string]string `json:\"paths,omitempty\"`",
+            "x-cc-substitutable": true
+        },
+        "data_paths": {
+            "type": "object",
+            "description": "Map of data key to a path internal to the resource: DSS part paths, HDF table paths, raster subdatasets. Distinct from paths, which locate the resource itself.",
+            "additionalProperties": {"type": "string"},
+            "propertyNames": {"not": {"pattern": "^\\s*$"}},
+            "x-cc-source": "cc-go-sdk DataSource.DataPaths map[string]string `json:\"data_paths,omitempty\"`",
+            "x-cc-substitutable": true,
+            "x-cc-note": "The Confluence payload example omits data_paths entirely. It is load-bearing for DSS/HDF plugins and MUST NOT be dropped by an SDK."
+        },
+        "store_name": {
+            "type": "string",
+            "description": "Name of the DataStore holding this source. Looked up by IOManager.GetStore, which searches the local scope then the parent payload. Required in practice: a DataSource without it cannot be read or written.",
+            "x-cc-source": "cc-go-sdk DataSource.StoreName `json:\"store_name,omitempty\"`",
+            "x-cc-substitutable": false,
+            "x-cc-note": "Not required by the schema because Go marks it omitempty and making it required would reject already-registered payloads (STD-WIRE-002). SDKs SHOULD emit a validation warning when it is absent rather than an error."
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "store": {
+        "name": "L",
+        "store_type": "FS",
+        "params": {
+            "root": "/data/root"
+        }
+    },
+    "operation": "resolve",
+    "path": "../../etc/passwd"
+}

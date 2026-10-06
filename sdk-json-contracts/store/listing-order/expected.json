@@ -1,0 +1,14 @@
+{
+    "results": [
+        "10.json",
+        "2.json",
+        "C.json",
+        "a.json",
+        "b.json"
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-003",
+        "source": "Object-store listing is not sorted; S3 returns keys in UTF-8 binary order"
+    }
+}

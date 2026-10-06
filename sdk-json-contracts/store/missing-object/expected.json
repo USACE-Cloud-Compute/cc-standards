@@ -1,0 +1,10 @@
+{
+    "error": "OBJECT_NOT_FOUND",
+    "exit_class": "input error",
+    "exit_code": 3,
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-PLG-006 / STD-PLG-011",
+        "source": "StoreReader.Get on an absent key"
+    }
+}

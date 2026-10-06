@@ -1,0 +1,17 @@
+{
+    "store": {
+        "name": "FFRD",
+        "store_type": "S3",
+        "profile": "FFRD",
+        "params": {
+            "root": "/model-library"
+        }
+    },
+    "seed": [
+        "mod/a.json",
+        "mod/x.json",
+        "modother/y.json"
+    ],
+    "operation": "list",
+    "prefix": "mod"
+}

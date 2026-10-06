@@ -1,0 +1,16 @@
+{
+    "outputs": [
+        {
+            "name": "out",
+            "paths": {
+                "default": "42/bardwell-creek/out.hdf"
+            },
+            "store_name": "FFRD"
+        }
+    ],
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "CODE: substituteMapVariables(pm.Attributes, **false**) for payload attributes vs **(action.Attributes, true)** for action attributes"
+    }
+}

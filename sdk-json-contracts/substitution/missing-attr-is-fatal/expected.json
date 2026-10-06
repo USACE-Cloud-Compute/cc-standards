@@ -1,0 +1,8 @@
+{
+    "error": "ERROR: SUBSTITUTION_MISSING_ATTRIBUTE",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-WIRE-010 / STD-WIRE-011",
+        "source": "DOC: Confluence — 'If an attribute name or a environment variable is used in substitution but not provided at compute time, the PluginManager will fatally fail'"
+    }
+}

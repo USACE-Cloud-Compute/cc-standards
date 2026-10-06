@@ -1,0 +1,9 @@
+{
+    "bytes_equal": true,
+    "sha256_stable": true,
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-DET-008 / STD-STR-004",
+        "source": "Streaming read/write through StoreReader/StoreWriter"
+    }
+}

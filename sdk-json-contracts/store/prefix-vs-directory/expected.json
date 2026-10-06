@@ -1,0 +1,13 @@
+{
+    "results": [
+        "mod/a.json",
+        "mod/x.json",
+        "modother/y.json"
+    ],
+    "note": "S3 has no directories; prefix 'mod' matches 'modother/' too",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-002",
+        "source": "Object store prefix semantics vs filesystem directory semantics"
+    }
+}

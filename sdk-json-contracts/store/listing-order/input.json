@@ -1,0 +1,19 @@
+{
+    "store": {
+        "name": "FFRD",
+        "store_type": "S3",
+        "profile": "FFRD",
+        "params": {
+            "root": "/model-library"
+        }
+    },
+    "seed": [
+        "b.json",
+        "a.json",
+        "C.json",
+        "10.json",
+        "2.json"
+    ],
+    "operation": "list",
+    "prefix": ""
+}

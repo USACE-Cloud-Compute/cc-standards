@@ -1,0 +1,12 @@
+{
+    "store": {
+        "name": "LOCAL",
+        "store_type": "FS",
+        "params": {
+            "root": "/home/mydir"
+        }
+    },
+    "seed_binary": "hdf-header+payload",
+    "operation": "get_then_put",
+    "expectation": "byte-identical"
+}

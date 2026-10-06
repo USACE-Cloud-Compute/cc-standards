@@ -1,0 +1,8 @@
+{
+    "resolved": "/data/root/a/b.json",
+    "_meta": {
+        "status": "PINNED",
+        "clause": "STD-STR-005",
+        "source": "CODE: GetAbsolutePath -> filepath.Clean(fmt.Sprintf(\"%s%c%s\", root, os.PathSeparator, path))"
+    }
+}

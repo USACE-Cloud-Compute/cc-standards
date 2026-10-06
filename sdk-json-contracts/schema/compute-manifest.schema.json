@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/compute-manifest.schema.json",
+    "title": "CC Compute Manifest",
+    "description": "Configuration for one compute (job). The core library transforms this into the payload an SDK reads, so field names here differ from the payload's: inputs.payload_attributes becomes payload attributes, inputs.data_sources becomes payload inputs. Both shapes are contract. Field names from cc-home/docs/06_compute-manifest.md.",
+    "type": "object",
+    "required": ["manifest_name", "plugin_definition"],
+    "additionalProperties": true,
+    "properties": {
+        "manifest_name": {"type": "string", "minLength": 1},
+        "plugin_definition": {
+            "type": "string",
+            "pattern": "^[^:]+(:[0-9]+)?$",
+            "description": "AWS Batch: '{plugin_name}:{plugin_revision}'. Local Docker: '{plugin_name}', revision omitted.",
+            "x-cc-rule": "STD-OPS-001: pinning by revision is what makes a run reproducible. A manifest with no revision resolves to whatever the latest registered revision is at submit time, so the same compute file can produce different results on two days."
+        },
+        "command": {"type": "array", "items": {"type": "string"}, "description": "Overrides the registered plugin command for this compute."},
+        "dependencies": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Compute manifest FILENAMES that must succeed first. Any dependency failure fails this job.",
+            "x-cc-known-divergence": "Dependencies are expressed as file paths, relative or absolute, not as manifest_name values. Two manifests with the same manifest_name in different directories are therefore distinguishable, but a moved file silently rewires the DAG. The edge set is defined by filesystem location."
+        },
+        "stores": {"type": "array", "items": {"$ref": "data-store.schema.json"}},
+        "inputs": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "environment": {"type": "array", "items": {"$ref": "plugin-manifest.schema.json#/$defs/nameValue"}},
+                "parameters": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "description": "Values substituted for Ref:: placeholders in the plugin manifest command. Maps placeholder name to value. Documented sample uses an integer value, so values are not strings-only."
+                },
+                "data_sources": {"type": "array", "items": {"$ref": "data-source.schema.json"}},
+                "payload_attributes": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "description": "Becomes the payload's attributes key.",
+                    "x-cc-known-divergence": "THREE names for one concept across the system: inputs.payload_attributes in a compute manifest, payloadAttributes in the Confluence payload example, and attributes in the actual serialized payload per cc-go-sdk. Any of the three could be the one a given SDK reads. This is the top-priority parity question for the contracts suite."
+                }
+            }
+        },
+        "outputs": {"type": "array", "items": {"$ref": "data-source.schema.json"}},
+        "actions": {"type": "array", "items": {"$ref": "action.schema.json"}},
+        "tags": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": "Passed to the compute provider where supported. Does not affect compute."
+        },
+        "retry_attempts": {"type": "integer", "minimum": 0, "default": 0, "description": "Overrides the plugin manifest value."},
+        "job_timeout": {"type": ["integer", "null"], "minimum": 1, "description": "Seconds; overrides the plugin manifest's execution_timeout."},
+        "resource_requirements": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Resource overrides as key/value pairs, overriding compute_environment."
+        }
+    },
+    "x-cc-notes": {
+        "transform-is-contract": "The compute-manifest-to-payload mapping is itself part of the wire contract and is currently documented only in prose. A payload fixture is not reproducible from a compute manifest fixture unless the mapping is pinned. contracts/transform/ records the expected mapping.",
+        "why-two-shapes": "A compute manifest is authored by a person and read by the core library; a payload is emitted by the core library and read by every SDK. The authoring shape nests under inputs for readability; the runtime shape is flat. Neither is wrong, but an SDK author reading the docs and an SDK author reading a captured payload will implement two different parsers unless this is stated."
+    }
+}

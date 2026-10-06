@@ -1,0 +1,90 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/USACE-Cloud-Compute/cc-standards/contracts/schema/compute-file.schema.json",
+    "title": "CC Compute File",
+    "description": "CLI-facing run descriptor bridging plugin manifests, compute manifests and the compute provider. Field names from cc-home/docs/07_compute-file.md. Note this file mixes snake_case and kebab-case ('execution-role', 'compute-manifests') within one document; all keys frozen.",
+    "type": "object",
+    "required": ["name", "provider", "event"],
+    "additionalProperties": true,
+    "properties": {
+        "name": {"type": "string", "minLength": 1, "description": "User-defined name for the compute run."},
+        "provider": {
+            "type": "object",
+            "required": ["type"],
+            "additionalProperties": true,
+            "properties": {
+                "type": {"enum": ["docker", "awsbatch"]},
+                "concurrency": {"type": "integer", "minimum": 1, "description": "docker only: local concurrency limit."},
+                "queue": {"type": "string", "description": "docker: must be 'docker-local'. awsbatch: the Batch queue name."},
+                "execution-role": {"type": "string", "description": "awsbatch only. KEBAB-CASE, unlike every other provider field. Frozen."},
+                "region": {"type": "string"},
+                "profile": {"type": "string", "description": "Named AWS credential profile resolved from the LOCAL aws credentials file. Meaningful only for the CLI; a plugin MUST NOT read it (STD-ENV-005)."}
+            },
+            "allOf": [
+                {"if": {"properties": {"type": {"const": "docker"}}, "required": ["type"]},
+                 "then": {"required": ["queue"]}},
+                {"if": {"properties": {"type": {"const": "awsbatch"}}, "required": ["type"]},
+                 "then": {"required": ["queue", "region"]}}
+            ]
+        },
+        "plugins": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "description": "Paths to plugin manifest files. Required for local Docker compute; required for awsbatch only at register time.",
+            "x-cc-known-divergence": "Filesystem paths again, like dependencies. A reorganized directory tree changes what a compute file registers without any diff to the DAG's meaning."
+        },
+        "event": {
+            "type": "object",
+            "required": ["compute-manifests"],
+            "additionalProperties": true,
+            "properties": {
+                "compute-manifests": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"type": "string", "minLength": 1},
+                    "description": "Unordered list of compute manifest files forming the event (DAG). Order comes from each manifest's dependencies, not from this array. KEBAB-CASE."
+                }
+            }
+        },
+        "generator": {
+            "description": "Event generator. Absent means a single event with identifier 0.",
+            "oneOf": [
+                {"type": "object", "required": ["type"], "properties": {"type": {"const": "list"}}, "additionalProperties": true},
+                {"type": "object",
+                 "required": ["type", "start", "end"],
+                 "properties": {
+                     "type": {"const": "array"},
+                     "start": {"type": "integer"},
+                     "end": {"type": "integer"},
+                     "perEventLoop": {"$ref": "#/$defs/perEventLoop"}
+                 },
+                 "additionalProperties": true},
+                {"type": "object",
+                 "required": ["type", "file"],
+                 "properties": {
+                     "type": {"const": "stream"},
+                     "file": {"type": "string", "minLength": 1},
+                     "delimiter": {"type": "string", "minLength": 1, "description": "Single delimiter such as ',' or '\\n'. The CLI accepts a file source only; other sources require code."},
+                     "perEventLoop": {"$ref": "#/$defs/perEventLoop"}
+                 },
+                 "additionalProperties": true}
+            ],
+            "x-cc-note": "oneOf on the type discriminator, so a malformed generator names the failing branch instead of reporting three mismatches."
+        },
+        "secrets-manager": {
+            "description": "In-memory secrets manager for the local Docker provider only. KEBAB-CASE.",
+            "type": "object",
+            "additionalProperties": true,
+            "x-cc-security": "STD-DATA-004: this block exists to hold values for local testing, which makes it the most likely place a real credential gets committed. It MUST contain placeholders only, and gitleaks runs over it in CI. Never copy a working local compute file into a repository."
+        }
+    },
+    "$defs": {
+        "perEventLoop": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "object", "additionalProperties": {"type": "string"}},
+            "description": "Key/value sets written into the environment once per loop iteration, multiplying the event count. An array of 1..N over start..end produces (end-start+1)*N jobs.",
+            "x-cc-cost": "This is the primary accidental-cost mechanism in the system: a 2000-event array with a 4-entry perEventLoop is 8000 jobs. Any tooling that estimates a run MUST multiply by perEventLoop length (STD-OPS-003)."
+        }
+    }
+}
